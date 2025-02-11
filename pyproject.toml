@@ -95,9 +95,10 @@ dev.cmd = "molecule converge"
 dev.working_dir = "extensions"
 format = {cmd = "ruff format"}
 lint = {composite = ["analyze", "format", "type-check", "ansible-lint"]}
-test = {cmd = "pytest --verbose tests"}
+test = {composite = ["test-pytest", "test-molecule"]}
+test-pytest = {cmd = "pytest --verbose tests"}
 test-molecule.cmd = "molecule test --all"
-test-molecule.working_dir = "extensions"
+test-molecule.working_dir = "synodic/network/extensions"
 type-check = {cmd = "mypy ."}
 
 [tool.pdm]
