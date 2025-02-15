@@ -1,0 +1,17 @@
+name: Publish to Ansible Galaxy
+on:
+  release:
+    types: [published]
+jobs:
+  deploy:
+    if: github.repository == 'synodic/ansible' && github.event.release.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: "Publish Collection to Galaxy"
+        uses: ansible/ansible-publish-action@v1
+        with:
+          api_key: "${{ secrets.GALAXY_API_KEY }}"

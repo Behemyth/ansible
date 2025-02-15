@@ -1,0 +1,12 @@
+namespace: synodic
+name: infrastructure
+version: 0.1.0
+readme: README.md
+authors:
+- Asher Norland <asher.norland@synodic.com>
+description: A collection of various roles to support Synodic infrastructure
+license_file: 'LICENSE'
+dependencies: {}
+repository: https://github.com/synodic/ansible
+issues: https://github.com/synodic/ansible/issues
+build_ignore: [tests]

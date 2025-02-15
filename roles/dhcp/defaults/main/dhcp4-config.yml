@@ -3,6 +3,7 @@ kea_dhcp4_config:
     interfaces-config:
       interfaces:
         - "*"
+      dhcp-socket-type: raw
 
     lease-database:
       type: memfile
@@ -27,4 +28,4 @@ kea_dhcp4_config:
           - name: routers
             data: 10.42.0.1
           - name: domain-name-servers
-            data: 10.42.0.1 8.8.8.8, 8.8.4.4
+            data: 10.42.0.1, 8.8.8.8, 8.8.4.4

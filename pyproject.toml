@@ -1,7 +1,7 @@
 [project]
 name = "ansible"
 version = "0.1.0"
-description = "Synodic monorepo for Ansible collections"
+description = "Synodic monorepo for Ansible roles"
 authors = [
     {name = "Asher Norland", email = "asher.norland@gmail.com"},
 ]
@@ -89,16 +89,11 @@ source = "scm"
 [tool.pdm.scripts]
 analyze = {cmd = "ruff check tests"}
 ansible-lint = {cmd = "ansible-lint"}
-destroy.cmd = "molecule destroy"
-destroy.working_dir = "extensions"
-dev.cmd = "molecule converge"
-dev.working_dir = "extensions"
 format = {cmd = "ruff format"}
 lint = {composite = ["analyze", "format", "type-check", "ansible-lint"]}
-test = {composite = ["test-pytest", "test-molecule"]}
+test = {composite = ["test-pytest"]}
 test-pytest = {cmd = "pytest --verbose tests"}
-test-molecule.cmd = "molecule test --all"
-test-molecule.working_dir = "synodic/network/extensions"
+test-molecule = {cmd = "molecule test --all"}
 type-check = {cmd = "mypy ."}
 
 [tool.pdm]
