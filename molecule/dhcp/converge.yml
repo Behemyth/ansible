@@ -5,4 +5,4 @@
   tasks:
     - name: Replace this task with one that validates your content
       ansible.builtin.include_role:
-        name: synodic.infrastructure.dhcp
+        name: synodic.network.dhcp
