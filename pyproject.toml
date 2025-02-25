@@ -1,7 +1,7 @@
 [project]
-name = "ansible"
+name = "ansible-network"
 version = "0.1.0"
-description = "Synodic monorepo for Ansible roles"
+description = "Synodic repository for Ansible network roles"
 authors = [
     {name = "Asher Norland", email = "asher.norland@gmail.com"},
 ]

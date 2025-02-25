@@ -1,12 +1,12 @@
 namespace: synodic
-name: infrastructure
+name: network
 version: 0.1.0
 readme: README.md
 authors:
 - Asher Norland <asher.norland@synodic.com>
-description: A collection of various roles to support Synodic infrastructure
+description: A collection of various network roles
 license_file: 'LICENSE'
 dependencies: {}
-repository: https://github.com/synodic/ansible
-issues: https://github.com/synodic/ansible/issues
+repository: https://github.com/synodic/ansible-network
+issues: https://github.com/synodic/ansible-network/issues
 build_ignore: [tests]

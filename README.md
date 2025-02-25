@@ -1,4 +1,4 @@
-# ansible
+# Network
 Ansible collection for the Synodic organization
 
 ## Testing
