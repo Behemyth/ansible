@@ -6,7 +6,7 @@ authors = [
     {name = "Asher Norland", email = "asher.norland@gmail.com"},
 ]
 dependencies = [
-  "ansible>=11.1.0", # Full ansible for vscode extension
+  "ansible>=11.4.0", # Full ansible for vscode extension
   "ansible-vault>=2.1",
   "pydantic>=2.10.3",
   "pyyaml>=6.0.2",
@@ -18,7 +18,7 @@ license = {text = "MIT"}
 [dependency-groups]
 lint = [
   "ansible-lint>=24.12.2",
-  "ruff>=0.8.5",
+  "ruff>=0.11.2",
   "mypy>=1.14",
 ]
 test = [
