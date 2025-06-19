@@ -1,33 +1,33 @@
 [project]
-name = "ansible-network"
-version = "0.1.0"
-description = "Synodic repository for Ansible network roles"
 authors = [
-    {name = "Asher Norland", email = "asher.norland@gmail.com"},
-]
+  {name = "Asher Norland", email = "asher.norland@gmail.com"},
+] 
 dependencies = [
-  "ansible>=11.4.0", # Full ansible for vscode extension
-  "ansible-vault>=2.1",
-  "pydantic>=2.10.3",
-  "pyyaml>=6.0.2",
-]
+  "ansible", # Full ansible for vscode extension
+  "ansible-vault",
+  "pydantic",
+  "pyyaml",
+] 
+description = "Synodic monorepo for Ansible roles" 
+license = {text = "MIT"} 
+name = "ansible" 
+readme = "README.md" 
 requires-python = ">=3.12" # Pinned to Ubuntu 24 version
-readme = "README.md"
-license = {text = "MIT"}
+version = "0.1.0" 
 
 [dependency-groups]
 lint = [
-  "ansible-lint>=24.12.2",
-  "ruff>=0.11.2",
-  "mypy>=1.14",
+  "ansible-lint",
+  "ruff",
+  "mypy",
 ]
 test = [
-  "dnspython>=2.7.0", # For molecule verification
-  "molecule>=24.12.0",
-  "pytest>=8.3.4",
-  "pytest-mock>=3.14.0",
-  "pytest-ansible>=24.12.0",
-  "molecule-plugins[docker]>=23.6.0",
+  "dnspython",
+  "molecule",
+  "pytest",
+  "pytest-mock",
+  "pytest-ansible",
+  "molecule-plugins[docker]",
 ]
 
 [tool.pytest.ini_options]
@@ -92,9 +92,9 @@ ansible-lint = {cmd = "ansible-lint"}
 format = {cmd = "ruff format"}
 lint = {composite = ["analyze", "format", "type-check", "ansible-lint"]}
 test = {composite = ["test-pytest"]}
-test-pytest = {cmd = "pytest --verbose tests"}
 test-molecule = {cmd = "molecule test --all"}
+test-pytest = {cmd = "pytest --verbose tests"}
 type-check = {cmd = "mypy ."}
 
 [tool.pdm]
-distribution = false
+distribution = false # We publish this to Galaxy, not PyPI
