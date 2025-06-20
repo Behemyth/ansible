@@ -26,6 +26,17 @@ Once PDM is installed, install project dependencies:
 pdm install
 ```
 
+This will also run a post-install script to set up system dependencies via Ansible.  
+You may be prompted for sudo permissions.
+
+If you need to re-run the system setup manually, you can use:
+
+```bash
+pdm run init
+```
+
+_Note: After setup, you may need to reload your shell or run `source /etc/profile.d/vagrant_wsl.sh` to enable the environment variable in your current session._
+
 ## Testing
 
 To test everything, run
