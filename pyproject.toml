@@ -7,14 +7,13 @@ dependencies = [
   "ansible-vault>=4.1.0",
   "pydantic>=2.11.7",
   "pyyaml>=6.0.2",
-  "docker>=7.1.0",
 ] 
 description = "Synodic monorepo for Ansible roles" 
+dynamic = ["version"] 
 license = {text = "MIT"} 
 name = "ansible" 
 readme = "README.md" 
 requires-python = ">=3.12" # Pinned to Ubuntu 24 version
-version = "0.1.0" 
 
 [dependency-groups]
 lint = [
@@ -27,12 +26,13 @@ test = [
   "molecule>=25.6.0",
   "pytest>=8.4.1",
   "pytest-mock>=3.14.1",
+  "docker>=7.1.0",
   "molecule-plugins[docker]>=23.7.0",
 ]
 
 [tool.pytest.ini_options]
-log_cli = true
 addopts = "-v"
+log_cli = true
 testpaths = [
   "tests",
 ]
