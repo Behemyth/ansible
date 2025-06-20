@@ -172,3 +172,6 @@ cython_debug/
 
 # Ansible
 .ansible
+
+# This is the generated file structure for the collections directory
+collections/

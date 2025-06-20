@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Test dhcp role
+  hosts: localhost
   remote_user: root
   roles:
     - dhcp

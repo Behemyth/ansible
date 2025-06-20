@@ -1,13 +1,46 @@
 ---
-- name: Verify the network setup
-  hosts: instance
+- name: Verify network setup
+  hosts: dhcp_client
+  vars:
+    description: |
+      This playbook verifies that the DHCP client has received an IP address in the expected range
+      and that systemd-networkd has created a DHCP lease file, confirming successful DHCP operation.
   tasks:
-    - name: Perform DNS lookup
-      ansible.builtin.set_fact:
-        dns_result: "{{ lookup('community.general.dig', 'www.google.com.', '127.0.0.1') }}"
+    - name: Get IPs
+      ansible.builtin.command: hostname -I
+      register: ip_output
+      changed_when: false
+      vars:
+        description: Get all assigned IP addresses on the client.
 
-    - name: Verify DNS lookup
+    - name: Show IPs
+      ansible.builtin.debug:
+        var: ip_output.stdout
+      vars:
+        description: Display the assigned IP addresses for debugging.
+
+    - name: Assert DHCP IP
       ansible.builtin.assert:
-        that: dns_result is defined and dns_result != ""
-        fail_msg: "Could not lookup DNS for 'www.google.com'"
-        success_msg: "DNS lookup result: {{ dns_result }}"
+        that:
+          - "'10.42.' in ip_output.stdout"
+        fail_msg: "No DHCP IP assigned"
+        success_msg: "DHCP IP assigned: {{ ip_output.stdout }}"
+      vars:
+        description: Ensure at least one IP address is in the expected DHCP range.
+
+    - name: Find Leases
+      ansible.builtin.find:
+        paths: /run/systemd/netif/leases
+        file_type: file
+      register: lease_files
+      vars:
+        description: Find systemd-networkd DHCP lease files.
+
+    - name: Assert Lease
+      ansible.builtin.assert:
+        that:
+          - lease_files.matched > 0
+        fail_msg: "No systemd-networkd DHCP lease file found"
+        success_msg: "systemd-networkd DHCP lease file(s) found: {{ lease_files.files | map(attribute='path') | list }}"
+      vars:
+        description: Ensure at least one DHCP lease file exists for systemd-networkd.

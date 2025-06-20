@@ -1,4 +1,5 @@
-kea_ddns_config:
+---
+dhcp_ddns_config:
   DhcpDdns:
     ip-address: 10.42.0.1
     dns-server-timeout: 100

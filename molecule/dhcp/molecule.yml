@@ -2,12 +2,33 @@
 driver:
   name: docker
 platforms:
-  - name: instance
-    image: geerlingguy/docker-ubuntu2204-ansible:latest
+  - name: dhcp_server
+    image: geerlingguy/docker-ubuntu2404-ansible:latest
     pre_build_image: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: /sbin/init
     privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    docker_networks:
+      - name: kea-net
+        driver: bridge
+        ipam_config:
+          - subnet: 10.42.0.0/24
+    networks:
+      - name: kea-net
+    capabilities:
+      - NET_ADMIN
+    cgroupns_mode: host
+
+  - name: dhcp_client
+    image: geerlingguy/docker-ubuntu2404-ansible:latest
+    pre_build_image: true
+    command: /sbin/init
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    networks:
+      - name: kea-net
     capabilities:
       - NET_ADMIN
     cgroupns_mode: host
@@ -18,7 +39,7 @@ provisioner:
     name: ansible-lint
   config_options:
     defaults:
-      stdout_callback: yaml
+      callback_result_format: json
 
 verifier:
   name: ansible

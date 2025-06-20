@@ -1,4 +1,5 @@
-kea_dhcp4_config:
+---
+dhcp_dhcp4_config:
   Dhcp4:
     interfaces-config:
       interfaces:

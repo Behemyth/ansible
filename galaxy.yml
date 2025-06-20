@@ -1,12 +1,15 @@
+---
 namespace: synodic
 name: core
 version: 0.1.0
 readme: README.md
 authors:
-- Asher Norland <asher.norland@synodic.com>
+  - Asher Norland <asher.norland@synodic.com>
 description: A collection of various roles to support Synodic core functionality
-license_file: 'LICENSE'
+license_file: "LICENSE"
 dependencies: {}
 repository: https://github.com/synodic/ansible-core
 issues: https://github.com/synodic/ansible-core/issues
 build_ignore: [tests]
+tags:
+  - infrastructure

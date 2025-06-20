@@ -3,10 +3,11 @@ authors = [
   {name = "Asher Norland", email = "asher.norland@gmail.com"},
 ] 
 dependencies = [
-  "ansible", # Full ansible for vscode extension
-  "ansible-vault",
-  "pydantic",
-  "pyyaml",
+  "ansible-dev-tools>=25.5.2",
+  "ansible-vault>=4.1.0",
+  "pydantic>=2.11.7",
+  "pyyaml>=6.0.2",
+  "docker>=7.1.0",
 ] 
 description = "Synodic monorepo for Ansible roles" 
 license = {text = "MIT"} 
@@ -17,24 +18,21 @@ version = "0.1.0"
 
 [dependency-groups]
 lint = [
-  "ansible-lint",
-  "ruff",
-  "mypy",
+  "ruff>=0.12.0",
+  "mypy>=1.16.1",
+  "types-docker>=7.1.0.20250523",
 ]
 test = [
-  "dnspython",
-  "molecule",
-  "pytest",
-  "pytest-mock",
-  "pytest-ansible",
-  "molecule-plugins[docker]",
+  "dnspython>=2.7.0",
+  "molecule>=25.6.0",
+  "pytest>=8.4.1",
+  "pytest-mock>=3.14.1",
+  "molecule-plugins[docker]>=23.7.0",
 ]
 
 [tool.pytest.ini_options]
 log_cli = true
-markers = [
-  "setup: Tests that should be run prior to any automation, verifying static IP setup",
-]
+addopts = "-v"
 testpaths = [
   "tests",
 ]
@@ -87,14 +85,14 @@ update = ["--update-all"]
 source = "scm"
 
 [tool.pdm.scripts]
-analyze = {cmd = "ruff check tests"}
-ansible-lint = {cmd = "ansible-lint"}
-format = {cmd = "ruff format"}
+analyze = "ruff check tests"
+ansible-lint = "ansible-lint"
+format = "ruff format"
 lint = {composite = ["analyze", "format", "type-check", "ansible-lint"]}
-test = {composite = ["test-pytest"]}
-test-molecule = {cmd = "molecule test --all"}
-test-pytest = {cmd = "pytest --verbose tests"}
-type-check = {cmd = "mypy ."}
+test = "pytest tests"
+test-integration = "pytest tests/integration"
+test-unit = "pytest tests/unit"
+type-check = "mypy ."
 
 [tool.pdm]
 distribution = false # We publish this to Galaxy, not PyPI

@@ -1,8 +1,47 @@
 ---
-- name: Converge
-  hosts: instance
+- name: Configure DHCP server
+  hosts: dhcp_server
   gather_facts: false
   tasks:
-    - name: Replace this task with one that validates your content
+    - name: Include Role
       ansible.builtin.include_role:
         name: synodic.core.dhcp
+      vars:
+        description: Include DHCP server role.
+
+- name: Configure DHCP client
+  hosts: dhcp_client
+  gather_facts: false
+  tasks:
+    - name: Start Networkd
+      ansible.builtin.systemd:
+        name: systemd-networkd
+        enabled: true
+        state: started
+      become: true
+      vars:
+        description: Ensure systemd-networkd is running.
+
+    - name: Copy Net Config
+      ansible.builtin.copy:
+        dest: /etc/systemd/network/10-eth0.network
+        mode: '0644'
+        content: |
+          [Match]
+          Name=eth0
+
+          [Network]
+          DHCP=yes
+      become: true
+      notify: Restart Networkd
+      vars:
+        description: Configure eth0 for DHCP.
+
+  handlers:
+    - name: Restart Networkd
+      ansible.builtin.systemd:
+        name: systemd-networkd
+        state: restarted
+      become: true
+      vars:
+        description: Restart systemd-networkd if config changes.
